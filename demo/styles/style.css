@@ -1,0 +1,33 @@
+.Accordion {
+  border: 1px solid #aaa;
+  width: 100%;
+}
+
+.Accordion-Title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: #f7f7f7;
+  cursor: pointer;
+}
+
+.Accordion-Title-Icon {
+  width: 20px;
+  transition-property: transform;
+  transition-duration: var(--accordion-duration);
+  transition-timing-function: var(--accordion-timing-function);
+}
+
+.AccordionIsOpen .Accordion-Title-Icon {
+  transform: rotateZ(-180deg);
+}
+
+.Accordion-Title::-webkit-details-marker {
+  display: none;
+}
+
+.Accordion-Content {
+  padding: 1em;
+}
