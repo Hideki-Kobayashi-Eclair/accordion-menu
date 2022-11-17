@@ -11,190 +11,23 @@
   <body>
     <div class="Section">
       <details class="Accordion">
+        <summary class="Accordion-Title">アコーディオン1</summary>
+        <p class="Accordion-Content"
+          >アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。</p
+        >
+      </details>
+      <details class="Accordion">
         <summary class="Accordion-Title">
-          <span class="Accordion-Title-Text">アコーディオン1</span>
+          <span class="Accordion-Title-Text">アコーディオン2</span>
           <img src="./images/arrow.svg" alt="" class="Accordion-Title-Icon" />
         </summary>
         <p class="Accordion-Content"
           >アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。</p
         >
       </details>
-      <details class="Accordion">
-        <summary class="Accordion-Title">アコーディオン2</summary>
-        <p class="Accordion-Content"
-          >アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。</p
-        >
-      </details>
-      <details class="Accordion">
-        <summary class="Accordion-Title"
-          >アコーディオン3アコーディオン3アコーディオン3アコーディオン3アコーディオン3アコーディオン3アコーディオン3アコーディオン3アコーディオン3アコーディオン3アコーディオン3アコーディオン3アコーディオン3アコーディオン3アコーディオン3アコーディオン3</summary
-        >
-        <p class="Accordion-Content"
-          >アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。アコーディオンのコンテンツです。</p
-        >
-      </details>
     </div>
-
+    <script src="./scripts/index.js"></script>
     <script>
-      class Accordion {
-        #OPENED = "opened"
-        #OPENING = "opening"
-        #CLOSED = "closed"
-        #CLOSING = "closing"
-
-        #target
-        #summary
-        #content
-        #duration = 300
-        #timingFunction = "ease"
-        #activeClass = "AccordionIsOpen"
-        #_status = this.#CLOSED
-
-        constructor(options) {
-          if (!options.target) throw new Error("target must need Element.")
-
-          this.#target = options.target
-
-          this.#duration = options.duration || this.#duration
-          this.#target.style.setProperty(
-            "--accordion-duration",
-            this.#duration + "ms"
-          )
-
-          this.#summary = this.#target.querySelector("summary")
-          this.#content = this.#target.querySelector("summary + *")
-
-          this.#timingFunction = options.timingFunction || this.#timingFunction
-          this.#target.style.setProperty(
-            "--accordion-timing-function",
-            this.#timingFunction
-          )
-          this.#activeClass = options.activeClass ?? this.#activeClass
-          this.#status = options.isOpenOnDefault ? this.#OPENED : this.#status
-
-          this.#target.style.transition = `height ${this.#duration}ms ${
-            this.#timingFunction
-          } 0s`
-          this.#target.style.overflow = "hidden"
-
-          this.#summary.addEventListener("click", (event) =>
-            this.#toggle(event)
-          )
-
-          this.#target.addEventListener("transitionend", (event) =>
-            this.#onTransitonEnd(event)
-          )
-        }
-
-        get #openedHeight() {
-          const computedStyle = getComputedStyle(this.#target)
-          const borderTopWidth = parseInt(
-            computedStyle.getPropertyValue("border-top-width")
-          )
-          const borderBottomWidth = parseInt(
-            computedStyle.getPropertyValue("border-bottom-width")
-          )
-
-          return (
-            this.#summary.getBoundingClientRect().height +
-            this.#content.getBoundingClientRect().height +
-            borderTopWidth +
-            borderBottomWidth +
-            "px"
-          )
-        }
-        get #closedHeight() {
-          const computedStyle = getComputedStyle(this.#target)
-          const borderTopWidth = parseInt(
-            computedStyle.getPropertyValue("border-top-width")
-          )
-          const borderBottomWidth = parseInt(
-            computedStyle.getPropertyValue("border-bottom-width")
-          )
-          return (
-            borderTopWidth +
-            borderBottomWidth +
-            this.#summary.getBoundingClientRect().height +
-            "px"
-          )
-        }
-
-        #toggle(event) {
-          event.preventDefault()
-          console.log(this.#target)
-
-          switch (this.#status) {
-            case this.#OPENED:
-              this.#target.style.height = this.#openedHeight
-              setTimeout(() => {
-                this.#status = this.#CLOSING
-              }, 10)
-              break
-
-            case this.#OPENING:
-              this.#status = this.#CLOSING
-              break
-
-            case this.#CLOSED:
-              this.#target.style.height = this.#closedHeight
-              setTimeout(() => {
-                this.#status = this.#OPENING
-              }, 10)
-
-              break
-
-            case this.#CLOSING:
-              this.#status = this.#OPENING
-              break
-          }
-        }
-
-        get #status() {
-          return this.#_status
-        }
-
-        set #status(status) {
-          this.#_status = status
-          switch (status) {
-            case this.#OPENED:
-              this.#target.setAttribute("open", "")
-              this.#target.classList.add(this.#activeClass)
-              this.#target.style.height = "auto"
-              break
-
-            case this.#OPENING:
-              this.#target.setAttribute("open", "")
-              this.#target.classList.add(this.#activeClass)
-              this.#target.style.height = this.#openedHeight
-              break
-
-            case this.#CLOSED:
-              this.#target.removeAttribute("open")
-              this.#target.classList.remove(this.#activeClass)
-              this.#target.style.height = "auto"
-              break
-
-            case this.#CLOSING:
-              this.#target.setAttribute("open", "")
-              this.#target.classList.remove(this.#activeClass)
-              this.#target.style.height = this.#closedHeight
-              break
-          }
-        }
-
-        #onTransitonEnd(event) {
-          if (this.#status === this.#CLOSING) {
-            this.#status = this.#CLOSED
-            return
-          }
-
-          if (this.#status === this.#OPENING) {
-            this.#status = this.#OPENED
-            return
-          }
-        }
-      }
-
       document.querySelectorAll(".Accordion").forEach((element, index) => {
         new Accordion({
           target: element,
